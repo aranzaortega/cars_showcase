@@ -1,14 +1,16 @@
+import { CarProps } from "@/types";
+
 export async function fetchCars() {
   const headers = {
     'X-RapidAPI-Key': '5658209429mshb0c0ea13e60f6d9p16b99bjsncc1ca05e452a',
     'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
   }
-  const url = 'https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=corolla';
+  const url = 'https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=q3';
   const response = await fetch(url, {headers: headers});
   const result = await response.json();
 
   return result;
-}
+};
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
   const basePricePerDay = 50; // Base rental price per day in dollars
@@ -24,3 +26,18 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
 
   return rentalRatePerDay.toFixed(0);
 };
+
+export const generateImageUrl = (car: CarProps, angle?: string) => {
+  const url = new URL('https://cdn.imagin.studio/getimage');
+
+  const { make, year, model } = car;
+
+  url.searchParams.append('customer', 'hrjavascript-mastery');
+  url.searchParams.append('make', make);
+  url.searchParams.append('modelFamily', model.split(' ')[0]);
+  url.searchParams.append('zoomType', 'fullscreen');
+  url.searchParams.append('modelYear', `${year}`);
+  url.searchParams.append('angle', `${angle}`);
+
+  return `${url}`
+}
