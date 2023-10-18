@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { CarCard, CustomFilter, Hero, SearchBar, ShowMore } from '@/components'
 import { fetchCars } from './utils'
 import { fuels, yearsOfProduction } from '@/constants';
-import { CarState } from "@types";
+import { CarState } from "@/types";
 
 export default function Home() {
   const [allCars, setAllCars] = useState<CarState>([]);
